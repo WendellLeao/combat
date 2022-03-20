@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Combat.GameplaySystem.Player
+namespace Combat.Gameplay.Player
 {
     public sealed class PlayerController : MonoBehaviour
     {
@@ -12,11 +12,13 @@ namespace Combat.GameplaySystem.Player
 
         public void Initialize()
         {
-            _player.SetMainCamera(_mainCamera);
+            _player.Initialize(_mainCamera);
         }
-        
+
         public void Dispose()
-        {}
+        {
+            _player.Dispose();
+        }
 
         public void Tick(float deltaTime)
         {

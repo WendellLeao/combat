@@ -1,6 +1,6 @@
 {
-    "name": "Combat.GameplaySystem",
-    "rootNamespace": "GameplaySystem",
+    "name": "Combat",
+    "rootNamespace": "Combat",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

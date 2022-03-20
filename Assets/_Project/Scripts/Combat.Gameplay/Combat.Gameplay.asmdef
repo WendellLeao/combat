@@ -1,0 +1,16 @@
+{
+    "name": "Combat.Gameplay",
+    "rootNamespace": "Gameplay",
+    "references": [
+        "GUID:0d37e4ad7ecf75a4bad2ba7071203aef"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

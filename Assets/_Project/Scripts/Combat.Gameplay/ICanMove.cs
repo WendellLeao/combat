@@ -1,4 +1,4 @@
-namespace Combat.GameplaySystem
+namespace Combat.Gameplay
 {
     public interface ICanMove
     {

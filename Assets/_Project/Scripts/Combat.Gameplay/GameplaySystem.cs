@@ -1,7 +1,7 @@
-﻿using Combat.GameplaySystem.Player;
+﻿using Combat.Gameplay.Player;
 using UnityEngine;
 
-namespace Combat.GameplaySystem
+namespace Combat.Gameplay
 {
     public sealed class GameplaySystem : MonoBehaviour
     {
