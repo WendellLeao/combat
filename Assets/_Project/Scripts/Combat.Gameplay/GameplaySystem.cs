@@ -12,8 +12,7 @@ namespace Combat.Gameplay
         {
             _playerController.Initialize();
 
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            DisableCursor();
         }
 
         private void OnDestroy()
@@ -24,6 +23,12 @@ namespace Combat.Gameplay
         private void Update()
         {
             _playerController.Tick(Time.deltaTime);
+        }
+
+        private void DisableCursor()
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 }
