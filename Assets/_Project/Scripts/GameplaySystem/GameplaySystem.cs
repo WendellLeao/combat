@@ -11,6 +11,9 @@ namespace Combat.GameplaySystem
         private void Awake()
         {
             _playerController.Initialize();
+
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void OnDestroy()
