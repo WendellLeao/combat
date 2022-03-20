@@ -9,8 +9,6 @@ namespace Combat.Gameplay.Player
         [Header("Movement")]
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private float _speed = 6f;
-        [SerializeField] private float _acceleration = 0.1f;
-        [SerializeField] private float _deceleration = 0.5f;
         
         [Header("Rotation")]
         [SerializeField] private float _turnSmoothTime = 0.1f;

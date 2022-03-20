@@ -7,7 +7,7 @@ namespace Combat.Gameplay.Player
     {
         [SerializeField] private Animator _animator;
         
-        private static readonly int VelocityHash = Animator.StringToHash("Velocity");
+        private static readonly int IsMovingHash = Animator.StringToHash("isMoving");
         
         private PlayerMovement _playerMovement;
 
@@ -18,18 +18,29 @@ namespace Combat.Gameplay.Player
         
         public void Tick(float deltaTime)
         {
-            UpdateMovementAnimation(deltaTime);
+            UpdateMovementAnimation();
         }
 
-        private void UpdateMovementAnimation(float deltaTime)
+        private void UpdateMovementAnimation()
         {
-            Vector3 movement = new Vector3(_playerMovement.Movement.x, 0f, _playerMovement.Movement.y);
+            bool playerIsMoving = PlayerIsMoving();
             
-            float velocityX = Vector3.Dot(movement.normalized, transform.right);
-            float velocityZ = Vector3.Dot(movement.normalized, transform.forward);
+            _animator.SetBool(IsMovingHash, playerIsMoving);
+        }
+
+        private bool PlayerIsMoving()
+        {
+            if (_playerMovement.Movement.x != 0)
+            {
+                return true;
+            }
             
-            _animator.SetFloat(VelocityHash, velocityX);
-            _animator.SetFloat(VelocityHash, velocityZ);
+            if (_playerMovement.Movement.y != 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
