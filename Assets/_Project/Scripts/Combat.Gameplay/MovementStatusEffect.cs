@@ -17,7 +17,7 @@ namespace Combat.Gameplay
 
             _originalSpeed = _movement.Speed;
             
-            _movement.Speed *= bonus;
+            _movement.SetSpeed(_originalSpeed * bonus);
 
             _hasActiveBonus = true;
         }
@@ -29,7 +29,7 @@ namespace Combat.Gameplay
                 return;
             }
             
-            _movement.Speed = _originalSpeed;
+            _movement.SetSpeed(_originalSpeed);
 
             _hasActiveBonus = false;
         }

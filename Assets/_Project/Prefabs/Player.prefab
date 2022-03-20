@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterController: {fileID: 3362704437617048659}
-  _speed: 7.2
+  _maxSpeed: 7.2
   _turnSmoothTime: 0.1
 --- !u!114 &6372927591913991766
 MonoBehaviour:

@@ -8,7 +8,7 @@ namespace Combat.Gameplay.Player
     {
         [Header("Movement")]
         [SerializeField] private CharacterController _characterController;
-        [SerializeField] private float _speed = 6f;
+        [SerializeField] private float _maxSpeed = 7.2f;
         
         [Header("Rotation")]
         [SerializeField] private float _turnSmoothTime = 0.1f;
@@ -18,8 +18,9 @@ namespace Combat.Gameplay.Player
         private Vector2 _movement;
         private float _turnSmoothVelocity;
         private float _velocity;
+        private float _speed;
 
-        public float Speed { get; set; }
+        public float Speed => _speed;
         public Vector2 Movement => _movement;
 
         public void Initialize(PlayerInputsListener playerInputsListener, Camera mainCamera)
@@ -30,7 +31,7 @@ namespace Combat.Gameplay.Player
             
             _mainCamera = mainCamera;
 
-            Speed = _speed;
+            _speed = _maxSpeed;
         }
 
         public void Dispose()
@@ -56,7 +57,7 @@ namespace Combat.Gameplay.Player
             
             Vector3 newDirection = GetNewDirection(direction).normalized;
                 
-            _characterController.Move(newDirection * Speed * deltaTime);
+            _characterController.Move(newDirection * _speed * deltaTime);
         }
 
         private void HandleReadPlayerInputs(PlayerInputsData playerInputsData)
@@ -69,6 +70,11 @@ namespace Combat.Gameplay.Player
             float smoothAngle = GetSmoothAngle(direction);
                 
             transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
+        }
+
+        public void SetSpeed(float speed)
+        {
+            _speed = speed;
         }
 
         private Vector3 GetNewDirection(Vector3 direction)
