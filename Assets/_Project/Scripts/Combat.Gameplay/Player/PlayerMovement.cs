@@ -58,20 +58,7 @@ namespace Combat.Gameplay.Player
 
             DecreaseVelocity(deltaTime);
         }
-
-        private float GetSmoothAngle(Vector3 direction)
-        {
-            float mainCameraAngle = _mainCamera.transform.eulerAngles.y;
-            
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + mainCameraAngle;
-
-            float currentAngle = transform.eulerAngles.y;
-            
-            float smoothAngle = Mathf.SmoothDampAngle(currentAngle, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
-
-            return smoothAngle;
-        }
-
+        
         private void IncreaseVelocity(float deltaTime)
         {
             if (_velocity >= 1f)
@@ -90,6 +77,19 @@ namespace Combat.Gameplay.Player
             }
             
             _velocity -= deltaTime * _deceleration;
+        }
+
+        private float GetSmoothAngle(Vector3 direction)
+        {
+            float mainCameraAngle = _mainCamera.transform.eulerAngles.y;
+            
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + mainCameraAngle;
+
+            float currentAngle = transform.eulerAngles.y;
+            
+            float smoothAngle = Mathf.SmoothDampAngle(currentAngle, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
+
+            return smoothAngle;
         }
     }
 }

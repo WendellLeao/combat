@@ -2,8 +2,8 @@ namespace Combat.Gameplay
 {
     public interface ICanMove
     {
-        public float Speed { get; }
+        float Speed { get; }
         
-        public void Move(float deltaTime);
+        void Move(float deltaTime);
     }
 }
