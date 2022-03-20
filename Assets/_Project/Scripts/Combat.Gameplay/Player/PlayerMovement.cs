@@ -22,7 +22,7 @@ namespace Combat.Gameplay.Player
         private float _velocity;
 
         public float Speed => _speed;
-        public float Velocity => _velocity;
+        public Vector2 Movement => _movement;
 
         public void Initialize(PlayerInputsListener playerInputsListener, Camera mainCamera)
         {
@@ -47,20 +47,16 @@ namespace Combat.Gameplay.Player
         {
             Vector3 direction = new Vector3(_movement.x, 0f, _movement.y);
 
-            if (direction.magnitude >= 0.1f)
+            if (direction.magnitude < 0.1f)
             {
-                UpdateRotation(direction);
-            
-                Vector3 newDirection = GetNewDirection(direction).normalized;
-                
-                _characterController.Move(newDirection * _speed * deltaTime);
-            
-                IncreaseVelocity(deltaTime);
-            
                 return;
             }
             
-            DecreaseVelocity(deltaTime);
+            UpdateRotation(direction);
+            
+            Vector3 newDirection = GetNewDirection(direction).normalized;
+                
+            _characterController.Move(newDirection * _speed * deltaTime);
         }
 
         private void HandleReadPlayerInputs(PlayerInputsData playerInputsData)
@@ -73,26 +69,6 @@ namespace Combat.Gameplay.Player
             float smoothAngle = GetSmoothAngle(direction);
                 
             transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
-        }
-        
-        private void IncreaseVelocity(float deltaTime)
-        {
-            if (_velocity >= 1f)
-            {
-                return;
-            }
-            
-            _velocity += deltaTime * _acceleration;
-        }
-        
-        private void DecreaseVelocity(float deltaTime)
-        {
-            if (_velocity <= 0f)
-            {
-                return;
-            }
-            
-            _velocity -= deltaTime * _deceleration;
         }
 
         private Vector3 GetNewDirection(Vector3 direction)

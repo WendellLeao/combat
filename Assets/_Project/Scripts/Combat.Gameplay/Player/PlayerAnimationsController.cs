@@ -18,14 +18,18 @@ namespace Combat.Gameplay.Player
         
         public void Tick(float deltaTime)
         {
-            UpdateMovementAnimation();
+            UpdateMovementAnimation(deltaTime);
         }
 
-        private void UpdateMovementAnimation()
+        private void UpdateMovementAnimation(float deltaTime)
         {
-            _animator.SetFloat(VelocityHash, _playerMovement.Velocity);
-
-            // Debug.Log(_playerMovement.Velocity);
+            Vector3 movement = new Vector3(_playerMovement.Movement.x, 0f, _playerMovement.Movement.y);
+            
+            float velocityX = Vector3.Dot(movement.normalized, transform.right);
+            float velocityZ = Vector3.Dot(movement.normalized, transform.forward);
+            
+            _animator.SetFloat(VelocityHash, velocityX);
+            _animator.SetFloat(VelocityHash, velocityZ);
         }
     }
 }
