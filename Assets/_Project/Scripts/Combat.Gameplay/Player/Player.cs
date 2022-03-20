@@ -4,27 +4,33 @@ namespace Combat.Gameplay.Player
 {
     public sealed class Player : Entity
     {
-        [Header("Player Components")]
+        [SerializeField] private PlayerInputsListener _playerInputsListener;
         [SerializeField] private PlayerMovement _playerMovement;
-        
-        [Header("Animations")]
-        [SerializeField] private PlayerAnimationsController _playerAnimationsController;
+        [SerializeField] private PlayerView _playerView;
 
         public void Initialize(Camera mainCamera)
         {
-            _playerMovement.Initialize(mainCamera);
+            _playerInputsListener.Initialize();
+                
+            _playerMovement.Initialize(_playerInputsListener, mainCamera);
             
-            _playerAnimationsController.Initialize(_playerMovement);
+            _playerView.Initialize(_playerMovement);
         }
-        
+
         public void Dispose()
-        {}
+        {
+            _playerInputsListener.Dispose();
+            
+            _playerMovement.Dispose();
+        }
         
         public void Tick(float deltaTime)
         {
+            _playerInputsListener.Tick(deltaTime);
+            
             _playerMovement.Tick(deltaTime);
             
-            _playerAnimationsController.Tick(deltaTime);
+            _playerView.Tick(deltaTime);
         }
     }
 }

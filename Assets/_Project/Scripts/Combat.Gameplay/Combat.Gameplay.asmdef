@@ -1,8 +1,9 @@
 {
     "name": "Combat.Gameplay",
-    "rootNamespace": "Gameplay",
+    "rootNamespace": "Combat.Gameplay",
     "references": [
-        "GUID:0d37e4ad7ecf75a4bad2ba7071203aef"
+        "GUID:0d37e4ad7ecf75a4bad2ba7071203aef",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

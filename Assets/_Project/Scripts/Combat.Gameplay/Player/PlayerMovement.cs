@@ -1,3 +1,4 @@
+using Combat.Gameplay.Inputs;
 using UnityEngine;
 
 namespace Combat.Gameplay.Player
@@ -14,19 +15,27 @@ namespace Combat.Gameplay.Player
         [Header("Rotation")]
         [SerializeField] private float _turnSmoothTime = 0.1f;
         
-        private const string HorizontalInputName = "Horizontal";
-        private const string VerticalInputName = "Vertical";
-        
+        private PlayerInputsListener _playerInputsListener;
+        private Camera _mainCamera;
+        private Vector2 _movement;
         private float _turnSmoothVelocity;
         private float _velocity;
-        private Camera _mainCamera;
 
         public float Speed => _speed;
         public float Velocity => _velocity;
 
-        public void Initialize(Camera mainCamera)
+        public void Initialize(PlayerInputsListener playerInputsListener, Camera mainCamera)
         {
+            _playerInputsListener = playerInputsListener;
+            
+            _playerInputsListener.OnReadPlayerInputs += HandleReadPlayerInputs;
+            
             _mainCamera = mainCamera;
+        }
+
+        public void Dispose()
+        {
+            _playerInputsListener.OnReadPlayerInputs -= HandleReadPlayerInputs;
         }
         
         public void Tick(float deltaTime)
@@ -36,27 +45,34 @@ namespace Combat.Gameplay.Player
 
         public void Move(float deltaTime)
         {
-            float horizontalAxisSpeed = Input.GetAxisRaw(HorizontalInputName);
-            float verticalAxisSpeed = Input.GetAxisRaw(VerticalInputName);
-
-            Vector3 direction = new Vector3(horizontalAxisSpeed, 0f, verticalAxisSpeed).normalized;
+            Vector3 direction = new Vector3(_movement.x, 0f, _movement.y);
 
             if (direction.magnitude >= 0.1f)
             {
-                float smoothAngle = GetSmoothAngle(direction);
-
-                transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
+                UpdateRotation(direction);
+            
+                Vector3 newDirection = GetNewDirection(direction).normalized;
                 
-                Vector3 movementDirection = Quaternion.Euler(0f, smoothAngle, 0f) * Vector3.forward;
-                
-                _characterController.Move(movementDirection.normalized * _speed * deltaTime);
-
+                _characterController.Move(newDirection * _speed * deltaTime);
+            
                 IncreaseVelocity(deltaTime);
-
+            
                 return;
             }
-
+            
             DecreaseVelocity(deltaTime);
+        }
+
+        private void HandleReadPlayerInputs(PlayerInputsData playerInputsData)
+        {
+            _movement = playerInputsData.PlayerMovement;
+        }
+
+        private void UpdateRotation(Vector3 direction)
+        {
+            float smoothAngle = GetSmoothAngle(direction);
+                
+            transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
         }
         
         private void IncreaseVelocity(float deltaTime)
@@ -79,6 +95,19 @@ namespace Combat.Gameplay.Player
             _velocity -= deltaTime * _deceleration;
         }
 
+        private Vector3 GetNewDirection(Vector3 direction)
+        {
+            Transform mainCameraTransform = _mainCamera.transform;
+                
+            Vector3 horizontalDirection = mainCameraTransform.forward * direction.z;
+            Vector3 depthDirection = mainCameraTransform.right * direction.x;
+                
+            direction = horizontalDirection + depthDirection;
+            direction.y = 0f;
+
+            return direction;
+        }
+        
         private float GetSmoothAngle(Vector3 direction)
         {
             float mainCameraAngle = _mainCamera.transform.eulerAngles.y;

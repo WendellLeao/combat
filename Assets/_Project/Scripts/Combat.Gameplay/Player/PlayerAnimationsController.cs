@@ -2,7 +2,7 @@
 
 namespace Combat.Gameplay.Player
 {
-    [RequireComponent(typeof(Player))]
+    [RequireComponent(typeof(PlayerView))]
     public sealed class PlayerAnimationsController : MonoBehaviour
     {
         [SerializeField] private Animator _animator;
@@ -25,7 +25,7 @@ namespace Combat.Gameplay.Player
         {
             _animator.SetFloat(VelocityHash, _playerMovement.Velocity);
 
-            Debug.Log(_playerMovement.Velocity);
+            // Debug.Log(_playerMovement.Velocity);
         }
     }
 }
