@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 3362704437617048659}
   - component: {fileID: 3362704437617048658}
   - component: {fileID: 3362704437617048685}
+  - component: {fileID: 6372927591913991766}
   - component: {fileID: 6203546645399313814}
+  - component: {fileID: 6964278570483674032}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -67,6 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerInputsListener: {fileID: 6203546645399313814}
   _playerMovement: {fileID: 3362704437617048685}
+  _playerSprint: {fileID: 6372927591913991766}
   _playerView: {fileID: 4611862095688899624}
 --- !u!114 &3362704437617048685
 MonoBehaviour:
@@ -82,9 +85,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterController: {fileID: 3362704437617048659}
   _speed: 7.2
-  _acceleration: 0.1
-  _deceleration: 0.5
   _turnSmoothTime: 0.1
+--- !u!114 &6372927591913991766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3362704437617048657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8dee32be326a14cabb289b5e049887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementStatusEffect: {fileID: 6964278570483674032}
+  _statusEffectBonus: 2.3
 --- !u!114 &6203546645399313814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,6 +110,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ada1f92ad670dbb40a1908c9ee0b7a0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6964278570483674032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3362704437617048657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bf2691c908aa84e8a2f1441f94ffb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &3362704438005216788

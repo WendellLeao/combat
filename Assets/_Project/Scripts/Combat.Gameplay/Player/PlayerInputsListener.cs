@@ -13,6 +13,7 @@ namespace Combat.Gameplay.Player
 		private PlayerInputs.LandControlsActions _playerLandControls;
 		private PlayerInputs _playerInputs;
 		private Vector2 _playerMovement;
+		private bool _isSprinting;
 
 		public void Initialize()
 		{
@@ -42,18 +43,41 @@ namespace Combat.Gameplay.Player
 		private void SubscribeEvents()
 		{
 			_playerLandControls.Movement.performed += SetPlayerMovement;
+			
+			_playerLandControls.Sprint.performed += HandleSprint;
+			_playerLandControls.Sprint.canceled += HandleSprint;
 		}
 
 		private void UnsubscribeEvents()
 		{
 			_playerLandControls.Movement.performed -= SetPlayerMovement;
+			
+			_playerLandControls.Sprint.performed -= HandleSprint;
+			_playerLandControls.Sprint.canceled -= HandleSprint;
 		}
 
 		private void UpdatePlayerInputs()
 		{
 			OnReadPlayerInputs?.Invoke(SetPlayerInputsData());
 		}
-	
+
+		private void HandleSprint(InputAction.CallbackContext context)
+		{
+			switch(context.phase)
+			{
+				case InputActionPhase.Performed:
+				{
+					_isSprinting = true;
+					break;
+				}
+				case InputActionPhase.Canceled:
+				{
+					_isSprinting = false;
+					break;
+				}
+			}
+		}
+		
 		private void ResetInputs()
 		{ }
 
@@ -62,6 +86,7 @@ namespace Combat.Gameplay.Player
 			PlayerInputsData playerInputsData = new PlayerInputsData();
 
 			playerInputsData.PlayerMovement = _playerMovement;
+			playerInputsData.IsSprinting = _isSprinting;
 
 			return playerInputsData;
 		}

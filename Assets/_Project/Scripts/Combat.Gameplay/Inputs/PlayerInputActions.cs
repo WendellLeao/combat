@@ -33,6 +33,14 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a11ea61-e9af-42dc-8404-6bec8e53135d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -101,6 +109,17 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""action"": ""MouseLook"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31fcbce1-5d0a-4cae-8879-4527c56d9dd9"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -111,6 +130,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         m_LandControls = asset.FindActionMap("LandControls", throwIfNotFound: true);
         m_LandControls_Movement = m_LandControls.FindAction("Movement", throwIfNotFound: true);
         m_LandControls_MouseLook = m_LandControls.FindAction("MouseLook", throwIfNotFound: true);
+        m_LandControls_Sprint = m_LandControls.FindAction("Sprint", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -162,12 +182,14 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
     private ILandControlsActions m_LandControlsActionsCallbackInterface;
     private readonly InputAction m_LandControls_Movement;
     private readonly InputAction m_LandControls_MouseLook;
+    private readonly InputAction m_LandControls_Sprint;
     public struct LandControlsActions
     {
         private @PlayerInputs m_Wrapper;
         public LandControlsActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_LandControls_Movement;
         public InputAction @MouseLook => m_Wrapper.m_LandControls_MouseLook;
+        public InputAction @Sprint => m_Wrapper.m_LandControls_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_LandControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -183,6 +205,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @MouseLook.started -= m_Wrapper.m_LandControlsActionsCallbackInterface.OnMouseLook;
                 @MouseLook.performed -= m_Wrapper.m_LandControlsActionsCallbackInterface.OnMouseLook;
                 @MouseLook.canceled -= m_Wrapper.m_LandControlsActionsCallbackInterface.OnMouseLook;
+                @Sprint.started -= m_Wrapper.m_LandControlsActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_LandControlsActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_LandControlsActionsCallbackInterface.OnSprint;
             }
             m_Wrapper.m_LandControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -193,6 +218,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @MouseLook.started += instance.OnMouseLook;
                 @MouseLook.performed += instance.OnMouseLook;
                 @MouseLook.canceled += instance.OnMouseLook;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
             }
         }
     }
@@ -201,5 +229,6 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnMouseLook(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
 }

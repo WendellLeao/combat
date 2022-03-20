@@ -19,7 +19,7 @@ namespace Combat.Gameplay.Player
         private float _turnSmoothVelocity;
         private float _velocity;
 
-        public float Speed => _speed;
+        public float Speed { get; set; }
         public Vector2 Movement => _movement;
 
         public void Initialize(PlayerInputsListener playerInputsListener, Camera mainCamera)
@@ -29,6 +29,8 @@ namespace Combat.Gameplay.Player
             _playerInputsListener.OnReadPlayerInputs += HandleReadPlayerInputs;
             
             _mainCamera = mainCamera;
+
+            Speed = _speed;
         }
 
         public void Dispose()
@@ -54,7 +56,7 @@ namespace Combat.Gameplay.Player
             
             Vector3 newDirection = GetNewDirection(direction).normalized;
                 
-            _characterController.Move(newDirection * _speed * deltaTime);
+            _characterController.Move(newDirection * Speed * deltaTime);
         }
 
         private void HandleReadPlayerInputs(PlayerInputsData playerInputsData)

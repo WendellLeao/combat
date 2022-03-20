@@ -6,6 +6,7 @@ namespace Combat.Gameplay.Player
     {
         [SerializeField] private PlayerInputsListener _playerInputsListener;
         [SerializeField] private PlayerMovement _playerMovement;
+        [SerializeField] private PlayerSprint _playerSprint;
         [SerializeField] private PlayerView _playerView;
 
         public void Initialize(Camera mainCamera)
@@ -14,6 +15,8 @@ namespace Combat.Gameplay.Player
                 
             _playerMovement.Initialize(_playerInputsListener, mainCamera);
             
+            _playerSprint.Initialize(_playerInputsListener);
+
             _playerView.Initialize(_playerMovement);
         }
 
@@ -22,6 +25,8 @@ namespace Combat.Gameplay.Player
             _playerInputsListener.Dispose();
             
             _playerMovement.Dispose();
+            
+            _playerSprint.Dispose();
         }
         
         public void Tick(float deltaTime)
