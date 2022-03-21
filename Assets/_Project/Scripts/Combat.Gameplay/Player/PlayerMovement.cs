@@ -30,7 +30,7 @@ namespace Combat.Gameplay.Player
             
             _mainCamera = mainCamera;
 
-            _speed = _maxSpeed;
+            ResetSpeed();
         }
 
         public void Dispose()
@@ -49,6 +49,8 @@ namespace Combat.Gameplay.Player
 
             if (direction.magnitude < 0.1f)
             {
+                ResetSpeed();
+                
                 return;
             }
             
@@ -97,6 +99,11 @@ namespace Combat.Gameplay.Player
             StartCoroutine(IncreaseSpeedRoutine(targetSpeed, timeMultiplier));
         }
 
+        private void ResetSpeed()
+        {
+            _speed = _maxSpeed;
+        }
+        
         private Vector3 GetNewDirection(Vector3 direction)
         {
             Transform mainCameraTransform = _mainCamera.transform;

@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementStatusEffect: {fileID: 6964278570483674032}
   _statusEffectBonus: 2.3
+  _timeMultiplier: 0.1
 --- !u!114 &6203546645399313814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 583314c3de61447cbdd2935a1d67a3f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnimationsController: {fileID: 9033793756159722814}
+  _playerAnimationsController: {fileID: 9033793756159722814}
 --- !u!114 &9033793756159722814
 MonoBehaviour:
   m_ObjectHideFlags: 0
