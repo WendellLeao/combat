@@ -1,4 +1,5 @@
 using Combat.Gameplay.Inputs;
+using System.Collections;
 using UnityEngine;
 
 namespace Combat.Gameplay.Player
@@ -17,12 +18,10 @@ namespace Combat.Gameplay.Player
         private Camera _mainCamera;
         private Vector2 _movement;
         private float _turnSmoothVelocity;
-        private float _velocity;
         private float _speed;
-
+        
         public float Speed => _speed;
-        public Vector2 Movement => _movement;
-
+        
         public void Initialize(PlayerInputsListener playerInputsListener, Camera mainCamera)
         {
             _playerInputsListener = playerInputsListener;
@@ -72,9 +71,30 @@ namespace Combat.Gameplay.Player
             transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
         }
 
-        public void SetSpeed(float speed)
+        public void SetSpeed(float targetSpeed, float timeMultiplier)
         {
-            _speed = speed;
+            if (timeMultiplier <= 0f)
+            {
+                _speed = targetSpeed;
+
+                return;
+            }
+            
+            StartCoroutine(IncreaseSpeedRoutine(targetSpeed, timeMultiplier));
+        }
+
+        private IEnumerator IncreaseSpeedRoutine(float targetSpeed, float timeMultiplier)
+        {
+            if (_speed >= targetSpeed)
+            {
+                yield break;
+            }
+            
+            yield return new WaitForSeconds(1f * timeMultiplier);
+
+            _speed++;
+
+            StartCoroutine(IncreaseSpeedRoutine(targetSpeed, timeMultiplier));
         }
 
         private Vector3 GetNewDirection(Vector3 direction)
@@ -101,6 +121,21 @@ namespace Combat.Gameplay.Player
             float smoothAngle = Mathf.SmoothDampAngle(currentAngle, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
 
             return smoothAngle;
+        }
+        
+        public bool PlayerIsMoving()
+        {
+            if (_movement.x != 0)
+            {
+                return true;
+            }
+                    
+            if (_movement.y != 0)
+            {
+                return true;
+            }
+        
+            return false;
         }
     }
 }

@@ -5,6 +5,6 @@ namespace Combat.Gameplay
         float Speed { get; }
         
         void Move(float deltaTime);
-        void SetSpeed(float speed);
+        void SetSpeed(float targetSpeed, float timeMultiplier = 0);
     }
 }

@@ -24,26 +24,15 @@ namespace Combat.Gameplay.Player
 
         private void UpdateMovementAnimation()
         {
-            bool playerIsMoving = PlayerIsMoving();
+            bool playerIsMoving = _playerMovement.PlayerIsMoving();
             
             _animator.SetBool(IsMovingHash, playerIsMoving);
 
-            _animator.SetFloat(VelocityHash, _playerMovement.Speed / 20f);
-        }
-
-        private bool PlayerIsMoving()
-        {
-            if (_playerMovement.Movement.x != 0)
-            {
-                return true;
-            }
+            float speedRatio = _playerMovement.Speed / 20f;
             
-            if (_playerMovement.Movement.y != 0)
-            {
-                return true;
-            }
+            _animator.SetFloat(VelocityHash, speedRatio);
 
-            return false;
+            Debug.Log("Speed Ratio: " + speedRatio);
         }
     }
 }

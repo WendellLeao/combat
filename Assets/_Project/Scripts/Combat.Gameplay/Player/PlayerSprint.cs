@@ -27,7 +27,7 @@ namespace Combat.Gameplay.Player
         {
             if (playerInputsData.IsSprinting)
             {
-                _movementStatusEffect.AddBonus(_statusEffectBonus);
+                _movementStatusEffect.AddBonus(_statusEffectBonus, 0.1f);
 
                 return;
             }
