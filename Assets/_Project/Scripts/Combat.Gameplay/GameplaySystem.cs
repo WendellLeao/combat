@@ -6,23 +6,23 @@ namespace Combat.Gameplay
     public sealed class GameplaySystem : MonoBehaviour
     {
         [Header("Controllers")]
-        [SerializeField] private PlayerController _playerController;
+        [SerializeField] private PlayerManager _playerManager;
         
         private void Awake()
         {
-            _playerController.Initialize();
+            _playerManager.Initialize();
 
             DisableCursor();
         }
 
         private void OnDestroy()
         {
-            _playerController.Dispose();
+            _playerManager.Dispose();
         }
 
         private void Update()
         {
-            _playerController.Tick(Time.deltaTime);
+            _playerManager.Tick(Time.deltaTime);
         }
 
         private void DisableCursor()

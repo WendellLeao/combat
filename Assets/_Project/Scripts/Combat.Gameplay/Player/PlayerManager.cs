@@ -2,7 +2,7 @@
 
 namespace Combat.Gameplay.Player
 {
-    public sealed class PlayerController : MonoBehaviour
+    public sealed class PlayerManager : MonoBehaviour
     {
         [Header("Player")]
         [SerializeField] private Player _player;
