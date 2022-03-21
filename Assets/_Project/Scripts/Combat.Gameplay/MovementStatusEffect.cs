@@ -8,7 +8,7 @@ namespace Combat.Gameplay
         private bool _hasActiveBonus;
         private float _originalSpeed;
 
-        public void AddBonus(float bonus, float multiplier = 0f)
+        public void AddBonus(float bonus, float timeMultiplier = 0f)
         {
             if (_hasActiveBonus)
             {
@@ -17,7 +17,7 @@ namespace Combat.Gameplay
 
             _originalSpeed = _movement.Speed;
             
-            _movement.SetSpeed(_originalSpeed * bonus, multiplier);
+            _movement.SetSpeed(_originalSpeed * bonus, timeMultiplier);
 
             _hasActiveBonus = true;
         }

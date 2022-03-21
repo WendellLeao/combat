@@ -8,6 +8,7 @@ namespace Combat.Gameplay.Player
     {
         [SerializeField] private MovementStatusEffect _movementStatusEffect;
         [SerializeField] private float _statusEffectBonus;
+        [SerializeField] private float _timeMultiplier = 0.1f;
 
         private PlayerInputsListener _playerInputsListener;
 
@@ -27,7 +28,7 @@ namespace Combat.Gameplay.Player
         {
             if (playerInputsData.IsSprinting)
             {
-                _movementStatusEffect.AddBonus(_statusEffectBonus, 0.1f);
+                _movementStatusEffect.AddBonus(_statusEffectBonus, _timeMultiplier);
 
                 return;
             }
